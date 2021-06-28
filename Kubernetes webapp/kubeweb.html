@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+    <title>Kubernetes</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-style.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+
+  </head>
+  <script>
+
+  	function commandProcessor(e) {
+
+      //Check if the enter key is pressed
+      if (e.keyCode == 13) {
+
+
+    document.getElementById('p3').innerHTML = "";
+    var i = document.getElementById("txtBox").value
+    var idd = "0"
+    var final = ""
+    if (((i.includes("deployments")) || (i.includes("deploy")) || (i.includes("deployment"))) && ((i.includes("create")) || (i.includes("generate")) || (i.includes("build")))) {
+    var image = prompt("Enter image name: ")
+  	var deployment_name = prompt("Enter Deployment name: ")
+  	var idd = "1"
+  	var final = idd + " " + image + " " + deployment_name
+
+      }
+
+    else if (((i.includes("pods")) || (i.includes("pod"))) && ((i.includes("create")) || (i.includes("generate")) || (i.includes("build")))) {
+  	var image = prompt("Enter image name: ")
+  	var pod_name = prompt("Enter pod name: ")
+  	var idd = "2"
+  	var final = idd + " " + image + " " + pod_name
+
+  	}
+
+    else if (((i.includes("pods")) || (i.includes("pod"))) && ((i.includes("delete")) || (i.includes("remove")) || (i.includes("detach")))) {
+  	var pod_name = prompt("Enter pod name: ")
+  	var idd = "3"
+  	var final = idd + " " + pod_name
+
+  	}
+
+    else if (((i.includes("deployments")) || (i.includes("deploy")) || (i.includes("deployment"))) && ((i.includes("delete")) || (i.includes("remove")) || (i.includes("detach")))) {
+  	var deployment_name = prompt("Enter Deployment name: ")
+  	var idd = "4"
+  	var final = idd + " " + deployment_name
+
+      }
+
+    else if (((i.includes("deployments")) || (i.includes("deploy")) || (i.includes("deployment"))) && ((i.includes("expose"))  || (i.includes("display")))) {
+  	var deployment_name = prompt("Enter Deployment name: ")
+  	var port_no = prompt("Enter port no on which you want to export your deployment: ")
+  	var expose_type = prompt(" 1. NodePort \n 2. ClusterIP \n 3.External \n Enter the type which you want to export ")
+  	var idd = "5"
+  	var final = idd + " " + deployment_name + " " + port_no + " " + expose_type
+
+      }
+
+    else if (((i.includes("deployments")) || (i.includes("deploy")) || (i.includes("deployment"))) && ((i.includes("scale")) || (i.includes("increase")) || (i.includes("decrease")) || (i.includes("scale up")) || (i.includes("scale down")))) {
+  	var deployment_name = prompt("Enter Deployment name: ")
+  	var replica = prompt("Enter no. of replicas you need : ")
+  	var idd = "6"
+  	var final = idd + " " + deployment_name + " " + replica
+
+      }
+
+    else if (((i.includes("pods")) || (i.includes("pod"))) && ((i.includes("show")) || (i.includes("get")) || (i.includes("list")))) {
+  	var idd = "7"
+  	var final = idd
+
+  	}
+
+    else if (((i.includes("deployments"))|| (i.includes("deployment")) || (i.includes("deploy"))) && ((i.includes("show")) || (i.includes("get")) || (i.includes("list")))) {
+  	var idd = "8"
+  	var final = idd
+
+  	}
+    else if (((i.includes("services")) || (i.includes("services")) || (i.includes("svc"))) && ((i.includes("show")) || (i.includes("get")) || (i.includes("list")))) {
+  	var idd = "9"
+  	var final = idd
+
+  	}
+
+    else if (((i.includes("all")) || (i.includes("everything"))) && ((i.includes("delete")) || (i.includes("remove")) || (i.includes("destroy")))) {
+  	var idd = "10"
+  	var final = idd
+
+  }
+
+    else {
+  	var idd = "404"
+  	var final = idd
+
+    }
+
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://192.168.99.101/cgi-bin/kube.py?x=" + final, false)
+    xhr.send();
+    var output = xhr.responseText;
+
+    document.getElementById("p3").innerHTML = output;
+
+    //Clear input text box
+    document.getElementById('txtBox').value = "";
+  }
+  }
+
+  </script>
+
+
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Main -->
+        <div id="main">
+          <div class="inner">
+
+            <!-- Header -->
+            <header id="header">
+              <div class="logo">
+                <a href="kubeweb.html">Kubernetes</a>
+              </div>
+            </header>
+
+            <!-- Forms -->
+            <section class="forms">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="section-heading">
+                      <center>
+                      <img src="img/bot.png" style= "width:10%"><img src="img/botkube.jpg" style= "width:20%"></center>
+                    </div>
+                    <br /><br /><br />
+                    <input type="text" class="form-control" id="txtBox" placeholder="How can I help you??" onkeypress="commandProcessor(event)">
+                    <br /><br />
+
+                    <center><pre id="p3"></pre></center>
+                    <br /><br /><br />
+
+
+                  </div>
+                </div>
+              </div>
+              <div style="position: absolute; bottom: 5; right: 40px; width: 200px; text-align:right;">By Vaidik Patel</div>
+            </section>
+
+
+    </div>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/transition.js"></script>
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/custom.js"></script>
+</body>
+
+
+  </body>
+
+</html>
